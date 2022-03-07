@@ -1,0 +1,21 @@
+---
+- name: pull git and launch the app with pm2
+  hosts: localhost
+  vars_files:
+        - vars/secrets.yml
+        - vars/variables.yml
+
+  pre_tasks:
+        - name: Version of Node and NPM
+          shell: "node -v && npm -v"
+          register: versioninfo
+        
+        - name: version info
+          debug:
+                msg: "Versino info {{ versioninfo.stdout_lines }}"
+          when: versioninfo is changed
+     
+        - name: Download the code from git repo
+          git:   
+                repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/test_jenkins.git"
+                dest: "{{ destdir }}"
