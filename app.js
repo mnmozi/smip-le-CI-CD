@@ -1,6 +1,5 @@
 import { exec } from "child_process";
-
-const express = require("express");
+import express from "express";
 const app = express();
 
 app.get("/", function (req, res) {
@@ -11,8 +10,17 @@ app.get("/", function (req, res) {
       console.log(stderr);
       if (error !== null) {
         console.log(`exec error: ${error}`);
+        res
+          .status(400)
+          .json({ message: "Error while executing the code", error: error });
+        return;
       }
+      res
+        .status(200)
+        .json({ message: "Command executed successfully!", ouput: stdout });
     }
   );
 });
-app.listen(8000);
+app.listen(8000, () => {
+  console.log("Listinign of port 8000");
+});
