@@ -1,2 +1,4 @@
 node_modules
-ansible/vars/sercrets/
+ansible/
+    vars/
+        sercrets
