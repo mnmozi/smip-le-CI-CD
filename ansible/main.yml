@@ -17,5 +17,7 @@
 
     - name: Download the code from git repo
       git:
-        repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/test_jenkins.git"
+        repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/CI2_Engine.git"
         dest: "{{ destdir }}"
+        single_branch: yes
+        version: dev
