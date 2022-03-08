@@ -1,2 +1,3 @@
 ---
 destdir: /root/shibl/testplay
+ciPm2ConfigFile: /root/shibl/testplay/ci.config.js

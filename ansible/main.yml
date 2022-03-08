@@ -21,3 +21,11 @@
         dest: "{{ destdir }}"
         single_branch: yes
         version: dev
+
+    - name: Reload
+      shell: "pm2 start {{ destdir }}/{{ ciPm2ConfigFile }}"
+      register: pm2Result
+
+    - name: pm2 Info.
+      debug:
+        msg: "Pm2 output: {{ pm2Result.stdout_lines }}"
