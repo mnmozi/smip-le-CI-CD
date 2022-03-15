@@ -21,6 +21,6 @@ app.get("/", function (req, res) {
     }
   );
 });
-app.listen(8000, () => {
-  console.log("Listinign of port 8000");
+app.listen(7500, () => {
+  console.log("Listinign of port 7500");
 });
