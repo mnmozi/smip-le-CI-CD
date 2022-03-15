@@ -3,6 +3,7 @@ import express from "express";
 const app = express();
 
 app.get("/", function (req, res) {
+  console.log("new request");
   exec(
     "ansible-playbook ansible/main.yml --vault-password-file ansible/vars/vault_pass.txt",
     (error, stdout, stderr) => {
