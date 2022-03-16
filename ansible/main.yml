@@ -22,6 +22,9 @@
         single_branch: yes
         version: devRelease
 
+    - name: Go to the app directory
+      command: chdir={{ destdir }}
+
     - name: Reload
       shell: "pm2 start {{ destdir }}/{{ ciPm2ConfigFile }}"
       register: pm2Result

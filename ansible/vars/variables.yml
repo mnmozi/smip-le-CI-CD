@@ -1,3 +1,3 @@
 ---
-destdir: /root/CI_ENGINE/NCI_ENGINE
+destdir: /root/CI_ENGINE/App
 ciPm2ConfigFile: ecosystem.config.js
