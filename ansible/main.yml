@@ -23,7 +23,7 @@
         version: devRelease
 
     - name: Go to the app directory
-      command: chdir={{ destdir }}
+      command: chdir={{ destdir }} ls
 
     - name: Reload
       shell: "pm2 start {{ destdir }}/{{ ciPm2ConfigFile }}"
