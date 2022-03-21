@@ -1,3 +1,4 @@
 ---
 destdir: /root/CI_ENGINE/App
+testDestDir: /nasr/CI_ENGINE_TEST
 ciPm2ConfigFile: ecosystem.config.js
