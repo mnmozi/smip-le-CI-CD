@@ -39,12 +39,12 @@
             msg: "Test output: {{ testcase.stdout_lines }}"
 
         - name: Download the code from git repo
-              git:
-                repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/CI2_Engine.git"
-                dest: "{{ destdir }}"
-                single_branch: yes
-                version: devRelease
-      always: 
+          git:
+            repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/CI2_Engine.git"
+            dest: "{{ destdir }}"
+            single_branch: yes
+            version: devRelease
+      always:
         - name: starting handlers
           debug:
             msg: Starting handlers
