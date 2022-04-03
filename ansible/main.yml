@@ -15,56 +15,44 @@
         msg: "version info {{ versioninfo.stdout_lines }}"
       when: versioninfo is changed
 
-    - name: Download the code from git repoo to the Test Directory
-      git:
-        repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/CI2_Engine.git"
-        dest: "{{ testDestDir }}"
-        single_branch: yes
-        version: devRelease
+  tasks:
+    - name: Automatic deploayment
+      block:
+        - name: Download the code from git repoo to the Test Directory
+          git:
+            repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/CI2_Engine.git"
+            dest: "{{ testDestDir }}"
+            single_branch: yes
+            version: devRelease
 
-    - name: Reload
-      shell: "pm2 stop {{ destdir }}/{{ ciPm2ConfigFile }}"
-      register: pm2StopResult
+        - name: Reload
+          shell: "pm2 stop {{ destdir }}/{{ ciPm2ConfigFile }}"
+          register: pm2StopResult
 
-    - name: Go to the test app directory
-      command: chdir=/root/nasr ls
+        - name: Run the test cases
+          command: npm test
+          args:
+            chdir: "{{ testDestDir }}"
+          register: testcase
 
-    - name: printing the current directory
-      shell: "pwd"
-      register: pwd
+        - debug:
+            msg: "Test output: {{ testcase.stdout_lines }}"
 
-    - name: pwd Info.
-      debug:
-        msg: " {{ pwd.stdout_lines }}"
+        - name: Download the code from git repo
+              git:
+                repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/CI2_Engine.git"
+                dest: "{{ destdir }}"
+                single_branch: yes
+                version: devRelease
+      always: 
+        - name: starting handlers
+          debug:
+            msg: Starting handlers
 
-    - name: Run the test cases
-      command: npm test
-      args:
-        chdir: "{{ testDestDir }}"
-      register: testcase
+        - name: Start pm2
+          shell: "pm2 start {{ destdir }}/{{ ciPm2ConfigFile }}"
+          register: pm2Result
 
-    - debug:
-        msg: "version info {{ testcase.stdout_lines }}"
-
-    - name: Download the code from git repo
-      git:
-        repo: "https://{{ gittoken }}@10.230.189.31/{{ gituser }}/CI2_Engine.git"
-        dest: "{{ destdir }}"
-        single_branch: yes
-        version: devRelease
-
-    - name: Go to the app directory
-      command: "chdir={{ destdir }} ls"
-
-  handlers:
-    - name: starting handlers
-      debug:
-        msg: Starting handlers
-
-    - name: Start pm2
-      shell: "pm2 start {{ destdir }}/{{ ciPm2ConfigFile }}"
-      register: pm2Result
-
-    - name: pm2 Info.
-      debug:
-        msg: "Pm2 output: {{ pm2Result.stdout_lines }}"
+        - name: pm2 Info.
+          debug:
+            msg: "Pm2 output: {{ pm2Result.stdout_lines }}"
