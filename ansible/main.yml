@@ -27,7 +27,7 @@
       register: pm2StopResult
 
     - name: Go to the test app directory
-      command: chdir={{ testDestDir }} ls
+      command: chdir="{{ testDestDir }}" ls
 
     - name: printing the current directory
       shell: "pwd"
@@ -52,7 +52,7 @@
         version: devRelease
 
     - name: Go to the app directory
-      command: chdir={{ destdir }} ls
+      command: chdir="{{ destdir }}" ls
 
   handlers:
     - name: starting handlers
