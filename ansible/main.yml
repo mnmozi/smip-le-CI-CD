@@ -27,7 +27,7 @@
       register: pm2StopResult
 
     - name: Go to the test app directory
-      command: "chdir={{ testDestDir }} ls"
+      command: chdir=/root/nasr ls
 
     - name: printing the current directory
       shell: "pwd"
@@ -39,6 +39,8 @@
 
     - name: Run the test cases
       command: npm test
+      args:
+        chdir: "{{ testDestDir }}"
       register: testcase
 
     - debug:
