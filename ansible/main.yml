@@ -26,6 +26,9 @@
       shell: "pm2 stop {{ destdir }}/{{ ciPm2ConfigFile }}"
       register: pm2StopResult
 
+    - name: Go to the test app directory
+      command: chdir={{ testDestDir }} ls
+
     - name: Run the test cases
       command: npm test
       register: testcase
