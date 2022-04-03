@@ -52,7 +52,7 @@
         version: devRelease
 
     - name: Go to the app directory
-      command: chdir="{{ destdir }}" ls
+      command: chdir=~/nasr ls
 
   handlers:
     - name: starting handlers
