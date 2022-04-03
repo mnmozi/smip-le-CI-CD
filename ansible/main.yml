@@ -29,6 +29,14 @@
     - name: Go to the test app directory
       command: chdir={{ testDestDir }} ls
 
+    - name: printing the current directory
+      shell: "pwd"
+      register: pwd
+
+    - name: pwd Info.
+      debug:
+        msg: " {{ pwd.stdout_lines }}"
+
     - name: Run the test cases
       command: npm test
       register: testcase
